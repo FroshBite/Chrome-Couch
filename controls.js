@@ -14,13 +14,13 @@ var rAFStop = window.mozCancelRequestAnimationFrame ||
 window.addEventListener("gamepadconnected", function() { //connected
   var gp = navigator.getGamepads()[0];
   console.log("Gamepad connected");
-  
+
   pointer.style.display="inline-block";
   gameLoop();
 });
 
 window.addEventListener("gamepaddisconnected", function() { //disconnected
-  
+
   // pointer.style.display="none";
 
   // pointer.parentNode.removeChild(pointer); // remove pointer
@@ -35,7 +35,7 @@ if(navigator.GetGamepads) {
 function webkitGP() {
   var gp = navigator.GetGamepads()[0];
   if(gp) {
-    
+
     gameLoop();
     clearInterval(interval);
   }
@@ -50,22 +50,18 @@ function gameLoop() {
 
     if(Math.abs(gp.axes[0])>=tolerance) {
       x += gp.axes[0];
-      console.log("Gp axes [0] " +gp.axes[0]);
     }
     if(Math.abs(gp.axes[1])>=tolerance) {
       y += gp.axes[1];
-      console.log("Gp axes [1] " +gp.axes[1]);
     }
   } else {
     var gp = navigator.getGamepads()[0];
 
     if(Math.abs(gp.axes[0])>=tolerance) {
       x += gp.axes[0];
-      console.log("Gp axes [0] " +gp.axes[0]);
     }
     if(Math.abs(gp.axes[1])>=tolerance) {
       y += gp.axes[1];
-      console.log("Gp axes [1] " +gp.axes[1]);
     }
   }
 
@@ -75,22 +71,18 @@ function gameLoop() {
 
     if(Math.abs(gp.axes[2])>=tolerance) {
       scrollx += gp.axes[0];
-      console.log("Gp axes [2] " +gp.axes[2]);
     }
     if(Math.abs(gp.axes[3])>=tolerance) {
       scrolly += gp.axes[3];
-      console.log("Gp axes [3] " +gp.axes[3]);
     }
   } else {
     var gp = navigator.getGamepads()[0];
 
     if(Math.abs(gp.axes[2])>=tolerance) {
       scrollx += gp.axes[2];
-      console.log("Gp axes [2] " +gp.axes[2]);
     }
     if(Math.abs(gp.axes[3])>=tolerance) {
       scrolly += gp.axes[3];
-      console.log("Gp axes [3] " +gp.axes[3]);
     }
   }
 
@@ -104,7 +96,6 @@ function gameLoop() {
 	window.scrollTo(scrollx*sensitivity, scrolly*sensitivity);
 
 if(gp.buttons[0].pressed==true){
-  	console.log("hey");
 	document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).click();
   document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).focus();
   }
