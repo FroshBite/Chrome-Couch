@@ -5,7 +5,7 @@ mouse.onload = function() {
     this.parentNode.removeChild(this);
 };
 
-(document.head||document.documentElement).appendChild(mouse);
+(document.body||document.documentElement).appendChild(mouse);
 
 console.log("Mouse created");
 
