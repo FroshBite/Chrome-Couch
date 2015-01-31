@@ -1,104 +1,96 @@
 var pointer = document.getElementById("mouse");
 var start;
+
+//used for the cursor positions
 var x = 0;
 var y = 0;
+
+//used for scrolling
 var scrollx=0;
 var scrolly=0;
 
-var rAF = window.mozRequestAnimationFrame ||
- window.requestAnimationFrame;
+//If the controller is currently connected
+var connected=false;
 
-var rAFStop = window.mozCancelRequestAnimationFrame ||
-  window.cancelRequestAnimationFrame;
+//To do with requesting animations with the web browser
+var rAF = window.mozRequestAnimationFrame || window.requestAnimationFrame;
 
-window.addEventListener("gamepadconnected", function() { //connected
-  var gp = navigator.getGamepads()[0];
-  console.log("Gamepad connected");
+var rAFStop = window.mozCancelRequestAnimationFrame || window.cancelRequestAnimationFrame;
 
-  pointer.style.display="inline-block";
-  gameLoop();
+//executes when the gamepad is first connected in a single tab session
+window.addEventListener("gamepadconnected", function() {
+  var gp = navigator.getGamepads()[0]; //capturing the first gamepad object from the gamepad array
+  console.log("Gamepad Connected");
+  connected=true;
+
+  pointer.style.display="inline-block"; //Displays the cursor
+  gameLoop(); //runs gameLoop which handles everything to do with the cursor
 });
 
-window.addEventListener("gamepaddisconnected", function() { //disconnected
-
-  // pointer.style.display="none";
-
-  // pointer.parentNode.removeChild(pointer); // remove pointer
-  rAFStop(start);
+//Executes when the gamepad is disconnected within a tab session
+window.addEventListener("gamepaddisconnected", function() {
+  pointer.style.display="none"; //hides the cursor from the user
+  rAFStop(start); //stops the browser from refreshing the animation
 });
 
-if(navigator.GetGamepads) {
-  // Webkit browser that uses prefixes
-  var interval = setInterval(webkitGP, 500);
-}
-
-function webkitGP() {
-  var gp = navigator.GetGamepads()[0];
-  if(gp) {
-
-    gameLoop();
-    clearInterval(interval);
-  }
-}
+// if(navigator.getGamepads()) {
+//   // Webkit browser that uses prefixes
+//   var interval = setInterval(webkitGP, 500);
+// }
+//
+// function webkitGP() {
+//   var gp = navigator.GetGamepads()[0];
+//   if(gp) {
+//
+//     gameLoop();
+//     clearInterval(interval);
+//   }
+// }
 
 function gameLoop() {
-  var sensitivity=14;
-  var tolerance=0.03; //so that the cursor doesnt move around when left idle
+  var cursorSensitivity=14;
+  var scrollSensitivity=14;
+  var tolerance=0.01; //so that the cursor doesnt move around when left idle
 
-  if(navigator.GetGamepads) {
-    var gp = navigator.GetGamepads()[0];
-
-    if(Math.abs(gp.axes[0])>=tolerance) {
-      x += gp.axes[0];
-    }
-    if(Math.abs(gp.axes[1])>=tolerance) {
-      y += gp.axes[1];
-    }
-  } else {
+  if(connected) {
+    //Storing the first gamepad that is connected
     var gp = navigator.getGamepads()[0];
 
-    if(Math.abs(gp.axes[0])>=tolerance) {
-      x += gp.axes[0];
+    //for moving the cursor around. Only moves after it detects movement past the tolerance
+    if(Math.abs(gp.axes[0])>=tolerance) { //harizontal movment
+      x += gp.axes[0]; //the left joystick right and left; ranges from -1 to 1
     }
-    if(Math.abs(gp.axes[1])>=tolerance) {
-      y += gp.axes[1];
+    if(Math.abs(gp.axes[1])>=tolerance) { //vertical movement
+      y += gp.axes[1];//the left joystick up and down; ranges from -1 to 1
     }
-  }
 
-  //Scrolling function
-  if(navigator.GetGamepads) {
-    var gp = navigator.GetGamepads()[0];
-
+    //For scrolling using the right joystick. Only moves after it detects movemenent past the tolerance
     if(Math.abs(gp.axes[2])>=tolerance) {
-      scrollx += gp.axes[0];
+      scrollx += gp.axes[2]; //the right joystick right and left; ranges from -1 to 1
     }
     if(Math.abs(gp.axes[3])>=tolerance) {
-      scrolly += gp.axes[3];
+      scrolly += gp.axes[3];//the right joystick up and down; ranges from -1 to 1
     }
-  } else {
-    var gp = navigator.getGamepads()[0];
 
-    if(Math.abs(gp.axes[2])>=tolerance) {
-      scrollx += gp.axes[2];
+    //===============Button Handlers=================
+    //When the user presses the "A" button
+    if(gp.buttons[0].pressed==true){
+      document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).click();
+      document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).focus();
     }
-    if(Math.abs(gp.axes[3])>=tolerance) {
-      scrolly += gp.axes[3];
-    }
+
+    //Moves the actual position of the cursor based on the new values of x and y
+    pointer.style.left = x*cursorSensitivity + "px";
+    pointer.style.top =y*cursorSensitivity + "px";
+
+    //Keeps the user from scrolling outside the screen
+	  if(scrollx<0)
+      scrollx=0;
+    if(scrolly<0)
+      scrolly=0;
+
+    //Scrolls the actual window based on the scrollx and scrolly values
+	  window.scrollTo(scrollx*scrollSensitivity, scrolly*scrollSensitivity);
+    var start = rAF(gameLoop); //requests a browser animation and calls upon the gameLoop function again recursively
   }
-
-
-    pointer.style.left = x*sensitivity + "px";
-    pointer.style.top =y*sensitivity + "px";
-
-	if(scrollx<0){scrollx=0};
-	if(scrolly<0){scrolly=0};
-
-	window.scrollTo(scrollx*sensitivity, scrolly*sensitivity);
-
-if(gp.buttons[0].pressed==true){
-	document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).click();
-  document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).focus();
-  }
-
-  var start = rAF(gameLoop);
-};
+}
