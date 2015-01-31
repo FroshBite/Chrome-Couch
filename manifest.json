@@ -28,5 +28,6 @@
       "matches": [ "http://*/*" ],
       "run_at": "document_end"
    } ],
+   "permissions": [ "activeTab","tabs" ],
    "web_accessible_resources": ["controls.js"]
 }
