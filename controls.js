@@ -14,8 +14,7 @@ window.addEventListener("gamepadconnected", function() { //connected
   var gp = navigator.getGamepads()[0];
   console.log("Gamepad connected");
   //gamepadInfo.innerHTML = "Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.";
-  
-  
+  pointer.style.display="inline-block";
   gameLoop();
 });
 
@@ -41,7 +40,7 @@ function webkitGP() {
 
 function gameLoop() {
   var sensitivity=14;
-  var tolerance=0.01; //so that the cursor doesnt move around when left idle
+  var tolerance=0.03; //so that the cursor doesnt move around when left idle
 
   if(navigator.GetGamepads) {
     var gp = navigator.GetGamepads()[0];
@@ -49,7 +48,7 @@ function gameLoop() {
     if(Math.abs(gp.axes[0])>=tolerance) {
       x += gp.axes[0];
       console.log("Gp axes [0] " +gp.axes[0]);
-    } 
+    }
     if(Math.abs(gp.axes[1])>=tolerance) {
       y += gp.axes[1];
       console.log("Gp axes [1] " +gp.axes[1]);
@@ -60,20 +59,16 @@ function gameLoop() {
     if(Math.abs(gp.axes[0])>=tolerance) {
       x += gp.axes[0];
       console.log("Gp axes [0] " +gp.axes[0]);
-    } 
+    }
     if(Math.abs(gp.axes[1])>=tolerance) {
       y += gp.axes[1];
       console.log("Gp axes [1] " +gp.axes[1]);
     }
   }
 
-  if (Math.abs(x)>=tolerance){
     pointer.style.left = x*sensitivity + "px";
-  }
-
-  if (Math.abs(y)>=tolerance){
     pointer.style.top =y*sensitivity + "px";
-  }
+
 
   var start = rAF(gameLoop);
 };
