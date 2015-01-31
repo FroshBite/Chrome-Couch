@@ -22,7 +22,9 @@ window.addEventListener("gamepadconnected", function() { //connected
 
 window.addEventListener("gamepaddisconnected", function() { //disconnected
   //gamepadInfo.innerHTML = "Waiting for gamepad.";
-  pointer.parentNode.removeChild(pointer); // remove pointer
+  // pointer.style.display="none";
+
+  // pointer.parentNode.removeChild(pointer); // remove pointer
   rAFStop(start);
 });
 
@@ -105,6 +107,8 @@ function gameLoop() {
 if(gp.buttons[0].pressed==true){
   	console.log("hey");
 	document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).click();
+  document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).focus();
+
   }
 
   var start = rAF(gameLoop);
