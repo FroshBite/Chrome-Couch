@@ -1,4 +1,3 @@
-var gamepadInfo = document.getElementById("gamepad-info");
 var pointer = document.getElementById("mouse");
 var start;
 var x = 0;
@@ -15,13 +14,13 @@ var rAFStop = window.mozCancelRequestAnimationFrame ||
 window.addEventListener("gamepadconnected", function() { //connected
   var gp = navigator.getGamepads()[0];
   console.log("Gamepad connected");
-  //gamepadInfo.innerHTML = "Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.";
+  
   pointer.style.display="inline-block";
   gameLoop();
 });
 
 window.addEventListener("gamepaddisconnected", function() { //disconnected
-  //gamepadInfo.innerHTML = "Waiting for gamepad.";
+  
   // pointer.style.display="none";
 
   // pointer.parentNode.removeChild(pointer); // remove pointer
@@ -36,7 +35,7 @@ if(navigator.GetGamepads) {
 function webkitGP() {
   var gp = navigator.GetGamepads()[0];
   if(gp) {
-    gamepadInfo.innerHTML = "Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.";
+    
     gameLoop();
     clearInterval(interval);
   }
@@ -108,7 +107,6 @@ if(gp.buttons[0].pressed==true){
   	console.log("hey");
 	document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).click();
   document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).focus();
-
   }
 
   var start = rAF(gameLoop);
