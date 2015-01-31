@@ -1,8 +1,8 @@
 var gamepadInfo = document.getElementById("gamepad-info");
 var pointer = document.getElementById("mouse");
 var start;
-var a = 0;
-var b = 0;
+var x = 0;
+var y = 0;
 
 var rAF = window.mozRequestAnimationFrame ||
  window.requestAnimationFrame;
@@ -40,34 +40,40 @@ function webkitGP() {
 }
 
 function gameLoop() {
+  var sensitivity=14;
+  var tolerance=0.01; //so that the cursor doesnt move around when left idle
+
   if(navigator.GetGamepads) {
     var gp = navigator.GetGamepads()[0];
 
-    if(gp.buttons[0] == 1) {
-      b--;
-    } else if(gp.buttons[1] == 1) {
-      a++;
-    } else if(gp.buttons[2] == 1) {
-      b++;
-    } else if(gp.buttons[3] == 1) {
-      a--;
+    if(Math.abs(gp.axes[0])>=tolerance) {
+      x += gp.axes[0];
+      console.log("Gp axes [0] " +gp.axes[0]);
+    } 
+    if(Math.abs(gp.axes[1])>=tolerance) {
+      y += gp.axes[1];
+      console.log("Gp axes [1] " +gp.axes[1]);
     }
   } else {
     var gp = navigator.getGamepads()[0];
 
-    if(gp.buttons[0].value > 0 || gp.buttons[0].pressed == true) {
-      b--;
-    } else if(gp.buttons[1].value > 0 || gp.buttons[1].pressed == true) {
-      a++;
-    } else if(gp.buttons[2].value > 0 || gp.buttons[2].pressed == true) {
-      b++;
-    } else if(gp.buttons[3].value > 0 || gp.buttons[3].pressed == true) {
-      a--;
+    if(Math.abs(gp.axes[0])>=tolerance) {
+      x += gp.axes[0];
+      console.log("Gp axes [0] " +gp.axes[0]);
+    } 
+    if(Math.abs(gp.axes[1])>=tolerance) {
+      y += gp.axes[1];
+      console.log("Gp axes [1] " +gp.axes[1]);
     }
   }
 
-  pointer.style.left = a*2 + "px";
-  pointer.style.top = b*2 + "px";
+  if (Math.abs(x)>=tolerance){
+    pointer.style.left = x*sensitivity + "px";
+  }
+
+  if (Math.abs(y)>=tolerance){
+    pointer.style.top =y*sensitivity + "px";
+  }
 
   var start = rAF(gameLoop);
 };
