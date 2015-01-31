@@ -6,27 +6,27 @@
 
   // Recommended
   "description": "Browse the web from the web, with a gamepad and Chrome Couch!",
-  "icons": { "16": "icon16.png",
-             "48": "icon48.png",
-            "128": "icon128.png" },
+  //"icons": { "16": "icon16.png",
+  //           "48": "icon48.png",
+  //          "128": "icon128.png" },
 
   // Pick one (or none)
   "browser_action": {
       "default_title": "Chrome Couch",
-      "default_icon": "icon.png",
+  //    "default_icon": "icon.png",
       "default_popup": "popup.html"
   },
 
   // Optional
-  "author": FroshBite,
-  "background": {
-    "scripts": ["background.html"],
-    "persistent": false
-  },
+  //"background": {
+  //  "scripts": ["background.js"],
+  //  "persistent": false
+  //}
   "content_scripts": [ {
+      "css": ["main.css"],
       "js": [ "main.js" ],
       "matches": [ "http://*/*" ],
       "run_at": "document_end"
    } ],
-  "web_accessible_resources": [ "gamepad.js", ]
+   "web_accessible_resources": ["controls.js"]
 }
