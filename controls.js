@@ -17,6 +17,17 @@ var rAF = window.mozRequestAnimationFrame || window.requestAnimationFrame;
 
 var rAFStop = window.mozCancelRequestAnimationFrame || window.cancelRequestAnimationFrame;
 
+//On page load, will check for an existing connection to a gamepad.
+window.addEventListener("load", function(){
+  if(navigator.getGamepads()) {
+    var gp = navigator.getGamepads()[0];
+    console.log("Gamepad connected");
+    pointer.style.display="inline-block";
+    connected=true;
+    gameLoop();
+  }
+});
+
 //executes when the gamepad is first connected in a single tab session
 window.addEventListener("gamepadconnected", function() {
   var gp = navigator.getGamepads()[0]; //capturing the first gamepad object from the gamepad array
@@ -32,20 +43,6 @@ window.addEventListener("gamepaddisconnected", function() {
   pointer.style.display="none"; //hides the cursor from the user
   rAFStop(start); //stops the browser from refreshing the animation
 });
-
-// if(navigator.getGamepads()) {
-//   // Webkit browser that uses prefixes
-//   var interval = setInterval(webkitGP, 500);
-// }
-//
-// function webkitGP() {
-//   var gp = navigator.GetGamepads()[0];
-//   if(gp) {
-//
-//     gameLoop();
-//     clearInterval(interval);
-//   }
-// }
 
 function gameLoop() {
   var cursorSensitivity=14;
