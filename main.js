@@ -6,7 +6,7 @@ mouse.onload = function() {
 };
 
 (document.body||document.documentElement).appendChild(mouse);
-
+// mouse.style.display="none";
 console.log("Mouse created");
 
 var controls = document.createElement('script');
