@@ -15,7 +15,6 @@ window.addEventListener("gamepadconnected", function() { //connected
   console.log("Gamepad connected");
   //gamepadInfo.innerHTML = "Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.";
   pointer.style.display="inline-block";
-
   gameLoop();
 });
 
