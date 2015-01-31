@@ -1,8 +1,8 @@
-var mouse = document.createElement('div');
+var mouse = document.createElement('div'); // mouse creation on connect
 
 mouse.id = "mouse";
 mouse.onload = function() {
-    this.parentNode.removeChild(this);
+  this.parentNode.removeChild(this);
 };
 
 (document.body||document.documentElement).appendChild(mouse);

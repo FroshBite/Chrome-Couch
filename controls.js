@@ -10,17 +10,18 @@ var rAF = window.mozRequestAnimationFrame ||
 var rAFStop = window.mozCancelRequestAnimationFrame ||
   window.cancelRequestAnimationFrame;
 
-window.addEventListener("gamepadconnected", function() {
+window.addEventListener("gamepadconnected", function() { //connected
   var gp = navigator.getGamepads()[0];
   console.log("Gamepad connected");
   //gamepadInfo.innerHTML = "Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.";
-
+  
+  
   gameLoop();
 });
 
-window.addEventListener("gamepaddisconnected", function() {
+window.addEventListener("gamepaddisconnected", function() { //disconnected
   //gamepadInfo.innerHTML = "Waiting for gamepad.";
-
+  pointer.parentNode.removeChild(pointer); // remove pointer
   rAFStop(start);
 });
 
