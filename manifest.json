@@ -6,14 +6,14 @@
 
   // Recommended
   "description": "Browse the web from the web, with a gamepad and Chrome Couch!",
-  //"icons": { "16": "icon16.png",
-  //           "48": "icon48.png",
-  //          "128": "icon128.png" },
+  "icons": { "16": "icon16.png",
+             "48": "icon48.png",
+            "128": "icon128.png" },
 
   // Pick one (or none)
   "browser_action": {
       "default_title": "Chrome Couch",
-  //    "default_icon": "icon.png",
+      "default_icon": "icon48.png",
       "default_popup": "popup.html"
   },
 
@@ -25,7 +25,7 @@
   "content_scripts": [ {
       "css": ["main.css"],
       "js": [ "main.js" ],
-      "matches": [ "http://*/*" ],
+      "matches": [ "http://*/*", "https://*/*"],
       "run_at": "document_end"
    } ],
    "permissions": [ "activeTab","tabs" ],
