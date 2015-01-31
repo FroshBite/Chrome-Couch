@@ -69,6 +69,10 @@ function gameLoop() {
     pointer.style.left = x*sensitivity + "px";
     pointer.style.top =y*sensitivity + "px";
 
+if(gp.buttons[0].pressed==true){
+  	console.log("hey");
+	document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).click();
+  }
 
   var start = rAF(gameLoop);
 };
