@@ -3,6 +3,8 @@ var pointer = document.getElementById("mouse");
 var start;
 var x = 0;
 var y = 0;
+var scrollx=0;
+var scrolly=0;
 
 var rAF = window.mozRequestAnimationFrame ||
  window.requestAnimationFrame;
@@ -66,8 +68,39 @@ function gameLoop() {
     }
   }
 
+  //Scrolling function
+  if(navigator.GetGamepads) {
+    var gp = navigator.GetGamepads()[0];
+
+    if(Math.abs(gp.axes[2])>=tolerance) {
+      scrollx += gp.axes[0];
+      console.log("Gp axes [2] " +gp.axes[2]);
+    }
+    if(Math.abs(gp.axes[3])>=tolerance) {
+      scrolly += gp.axes[3];
+      console.log("Gp axes [3] " +gp.axes[3]);
+    }
+  } else {
+    var gp = navigator.getGamepads()[0];
+
+    if(Math.abs(gp.axes[2])>=tolerance) {
+      scrollx += gp.axes[2];
+      console.log("Gp axes [2] " +gp.axes[2]);
+    }
+    if(Math.abs(gp.axes[3])>=tolerance) {
+      scrolly += gp.axes[3];
+      console.log("Gp axes [3] " +gp.axes[3]);
+    }
+  }
+
+
     pointer.style.left = x*sensitivity + "px";
     pointer.style.top =y*sensitivity + "px";
+
+	if(scrollx<0){scrollx=0};
+	if(scrolly<0){scrolly=0};
+
+	window.scrollTo(scrollx*sensitivity, scrolly*sensitivity);
 
 if(gp.buttons[0].pressed==true){
   	console.log("hey");
