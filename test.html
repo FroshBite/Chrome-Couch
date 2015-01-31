@@ -13,32 +13,36 @@
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <style>
-      #ball {
-        width: 5px;
-        height: 5px;
-        border-radius: 2px;
+      #mouse {
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
         background-color: red;
-
+        top:0;
+        left:50%;
         background-image: -webkit-radial-gradient(40% 40%, circle, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));;
         background-image: -moz-radial-gradient(40% 40%, circle, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));;
         background-image: -ms-radial-gradient(40% 40%, circle, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));;
         background-image: radial-gradient(circle at 40% 40%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
 
-        position: relative;
+
+        position: fixed;
+        display:none;
+        z-index: 9001;
       }
     </style>
   </head>
 
   <body>
     <p id="gamepad-info">Waiting for Gamepad.</p>
-    <div id="ball"></div>
+    <div id="mouse"></div>
 
   </body>
 
 <script>
 
 var gamepadInfo = document.getElementById("gamepad-info");
-var ball = document.getElementById("ball");
+var mouse = document.getElementById("mouse");
 var start;
 var a = 0;
 var b = 0;
@@ -62,13 +66,13 @@ window.addEventListener("gamepaddisconnected", function() {
   rAFStop(start);
 });
 
-if(navigator.GetGamepads) {
+if(navigator.getGamepads) {
   // Webkit browser that uses prefixes
   var interval = setInterval(webkitGP, 500);
 }
 
 function webkitGP() {
-  var gp = navigator.GetGamepads()[0];
+  var gp = navigator.getGamepads()[0];
   if(gp) {
     gamepadInfo.innerHTML = "Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.";
     gameLoop();
@@ -77,8 +81,8 @@ function webkitGP() {
 }
 
 function gameLoop() {
-  if(navigator.GetGamepads) {
-    var gp = navigator.GetGamepads()[0];
+  if(navigator.getGamepads) {
+    var gp = navigator.getGamepads()[0];
 
     if(gp.buttons[0] == 1) {
       b--;
@@ -103,8 +107,8 @@ function gameLoop() {
     }
   }
 
-  ball.style.left = a*2 + "px";
-  ball.style.top = b*2 + "px";
+  mouse.style.left = a*2 + "px";
+  mouse.style.top = b*2 + "px";
 
   var start = rAF(gameLoop);
 };
