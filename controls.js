@@ -110,8 +110,11 @@ function gameLoop() {
     }
     //Only opens the links when the user actually releases the button, rather than clicks it
     if (pressedButton[0] && gp.buttons[0].pressed==false){
-      document.elementFromPoint(parseInt(pointer.style.left), parseInt(pointer.style.top)).click();
-      document.elementFromPoint(parseInt(pointer.style.left), parseInt(pointer.style.top)).focus();
+      var closestElement=document.elementFromPoint(parseInt(pointer.style.left), parseInt(pointer.style.top));
+      if (closestElement){ //Makes sure that the selected/found element is valid/not null
+        closestElement.click(); //for clicking on links
+        closestElement.focus();//for selecting text-boxes
+      }
       pressedButton[0]=false;
     }
 
