@@ -1,5 +1,5 @@
 # Chrome-Couch
-Use an XInput gamepad to control Google Chrome from the comfort of your couch.
+###Use an XInput gamepad to control Google Chrome from the comfort of your couch.
 
 ![Extension icon](https://raw.githubusercontent.com/FroshBite/Chrome-Couch/master/icon128.png)
 
@@ -14,13 +14,14 @@ A Google Chrome extension made during UofTHacks 2015. Click, type, scroll and br
 
 ## Controls
 
-* A button = Click
-* Left analog stick = Move cursor, Reset cursor position (click)
-* Right analog stick = Scroll
-* Back = Back
-* Start = Forward
-* X button = Refresh
-* Y button = Toggle keyboard
+* `A button` = Click
+* `Left analog` stick = Move cursor, Reset cursor position with click
+* `Right analog` stick = Scroll
+* `Back` = Back
+* `Start` = Forward
+* `X button` = Refresh
+* `Y button` = Toggle keyboard
+* `RB` = Open a New Tab
 
 ## [Team Froshbite](https://github.com/FroshBite)
 
