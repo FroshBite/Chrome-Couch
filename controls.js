@@ -1,11 +1,16 @@
+var cursorSensitivity=14;
+var scrollSensitivity=14;
+
 var pointer = document.getElementById("mouse");
 var start;
 
 var keyboardOn=false;
 
 //used for the cursor positions
-var x = 0;
-var y = 0;
+var x =window.innerWidth/cursorSensitivity/2;
+var y = window.innerHeight/cursorSensitivity/2;
+
+// console.log("Window Inner Width: "+window.innerWidth);
 
 //used for scrolling
 var scrollx=0;
@@ -61,8 +66,7 @@ window.addEventListener("gamepaddisconnected", function() {
 });
 
 function gameLoop() {
-  var cursorSensitivity=14;
-  var scrollSensitivity=14;
+
   var tolerance=0.05; //so that the cursor doesnt move around when left idle
 
   if(connected) {
@@ -180,8 +184,8 @@ function gameLoop() {
       pressedButton[10] = true;
     }
     if (pressedButton[10] && gp.buttons[10].pressed == false){
-      x=0;
-      y=0;
+      x =window.innerWidth/cursorSensitivity/2;
+      y = window.innerHeight/cursorSensitivity/2;
       pressedButton[10]=false;
     }
 
