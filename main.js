@@ -8,7 +8,6 @@ mouse.onload = function() {
 };
 
 (document.body||document.documentElement).appendChild(mouse);
-console.log("Mouse created");
 
 var controls = document.createElement('script');
 controls.src = chrome.extension.getURL('controls.js');
