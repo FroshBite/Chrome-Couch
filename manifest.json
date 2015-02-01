@@ -30,7 +30,7 @@
       "js": [ "main.js", "keyboard_script.js" ],
       "matches": [ "<all_urls>"],
       "run_at": "document_end",
-      "all_frames": true
+      "all_frames": false
    } ],
 
    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
@@ -40,7 +40,7 @@
    "options_page": "options.html",
 
    "web_accessible_resources": [
-    "controls.js", 
+    "controls.js",
     "keyboard.html",
     "keyboards/keyboard_*.html",
     "keyboards/keyboard_en.html",
