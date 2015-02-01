@@ -2,14 +2,14 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     if (request.method == "getLocalStorage")
 	{
 		sendResponse({data: localStorage[request.key]});
-	} 
+	}
 	else if (request.method == "getSmallKeyboardCoords")
 	{
 		sendResponse({smallKeyboard: localStorage["smallKeyboard"], smallKeyboardTop: localStorage["smallKeyboardTop"], smallKeyboardBottom: localStorage["smallKeyboardBottom"], smallKeyboardRight: localStorage["smallKeyboardRight"], smallKeyboardLeft: localStorage["smallKeyboardLeft"]});
 	}
 	else if (request.method == "loadKeyboardSettings")
 	{
-		sendResponse({openedFirstTime: localStorage["openedFirstTime"], 
+		sendResponse({openedFirstTime: localStorage["openedFirstTime"],
 					capsLock: localStorage["capsLock"],
 					smallKeyboard: localStorage["smallKeyboard"],
 					touchEvents: localStorage["touchEvents"],
@@ -19,7 +19,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 	}
 	else if (request.method == "initLoadKeyboardSettings")
 	{
-		sendResponse({hardwareAcceleration: localStorage["hardwareAcceleration"], 
+		sendResponse({hardwareAcceleration: localStorage["hardwareAcceleration"],
 					zoomLevel: localStorage["zoomLevel"],
 					autoTrigger: localStorage["autoTrigger"],
 					intelligentScroll: localStorage["intelligentScroll"],
@@ -30,16 +30,16 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 	{
 		localStorage[request.key] = request.value;
 		sendResponse({data: "ok"});
-	}	
+	}
 	else if (request.method == "openFromIframe")
 	{
-		chrome.tabs.getSelected(null, function(tab) { 
+		chrome.tabs.getSelected(null, function(tab) {
 			chrome.tabs.sendRequest(tab.id, request);
 		});
 	}
 	else if (request.method == "clickFromIframe")
 	{
-		chrome.tabs.getSelected(null, function(tab) { 
+		chrome.tabs.getSelected(null, function(tab) {
 			chrome.tabs.sendRequest(tab.id, request);
 		});
 	}
@@ -50,7 +50,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 		} else {
 			localStorage["keyboardEnabled"] = "true";
 		}
-		chrome.tabs.getSelected(null, function(tab) { 
+		chrome.tabs.getSelected(null, function(tab) {
 			vkeyboard_loadPageIcon(tab.id);
 			if (localStorage["keyboardEnabled"] == "false") {
 				chrome.tabs.sendRequest(tab.id, "closeKeyboard");
@@ -59,41 +59,41 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 			}
 		})
 		sendResponse({data: "ok"});
-	} 
+	}
 	else if (request.method == "toogleKeyboardOn")
 	{
 		localStorage["keyboardEnabled"] = "true";
-		chrome.tabs.getSelected(null, function(tab) { 
+		chrome.tabs.getSelected(null, function(tab) {
 			vkeyboard_loadPageIcon(tab.id);
 			chrome.tabs.sendRequest(tab.id, "openKeyboard");
 		})
 		sendResponse({data: "ok"});
-	} 
+	}
 	else if (request.method == "toogleKeyboardDemand")
 	{
 		localStorage["keyboardEnabled"] = "demand";
-		chrome.tabs.getSelected(null, function(tab) { 
+		chrome.tabs.getSelected(null, function(tab) {
 			vkeyboard_loadPageIcon(tab.id);
 			chrome.tabs.sendRequest(tab.id, "openKeyboard");
 		})
 		sendResponse({data: "ok"});
-	} 
+	}
 	else if (request.method == "toogleKeyboardOff")
 	{
 		localStorage["keyboardEnabled"] = "false";
-		chrome.tabs.getSelected(null, function(tab) { 
+		chrome.tabs.getSelected(null, function(tab) {
 			vkeyboard_loadPageIcon(tab.id);
 			chrome.tabs.sendRequest(tab.id, "closeKeyboard");
 		})
 		sendResponse({data: "ok"});
-	} 
+	}
 	else if (request.method == "openUrlBar")
 	{
-		chrome.tabs.getSelected(null, function(tab) { 
+		chrome.tabs.getSelected(null, function(tab) {
 			chrome.tabs.sendRequest(tab.id, "openUrlBar");
 			sendResponse({data: "ok" });
 		});
-	} 
+	}
     else {
       sendResponse({});
 	}
@@ -126,7 +126,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	  magicnumber-=1;
 	  if(magicnumber<0){
 	  magicnumber=15;
-	  chrome.tabs.create({ url: "http://www.reddit.com", active: true });
+	  chrome.tabs.create({ url: "http://www.google.ca", active: true });
 	  }
 	  	  sendResponse({farewell: "newtabbed"});
 	}
@@ -135,14 +135,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		if(magicnumber<0){
 			magicnumber=15;
 			chrome.tabs.query({index:0, currentWindow:true}, function(newtab){
-				
+
 			});
 		}
 		sendResponser({farewell:"Switch R'ed"});
 	}
 	return true;
 });
-
-
-
-
