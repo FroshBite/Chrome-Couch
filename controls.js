@@ -1,6 +1,8 @@
 var pointer = document.getElementById("mouse");
 var start;
 
+var keyboardOn=false;
+
 //used for the cursor positions
 var x = 0;
 var y = 0;
@@ -95,6 +97,7 @@ function gameLoop() {
     else{
       pressedAxis[3]=true;//A valid scroll in the y direction has  been detected
     }
+
     x += leftx; //the left joystick right and left; ranges from -1 to 1
     y += lefty;//the left joystick up and down; ranges from -1 to 1
     scrollx += rightx; //the right joystick right and left; ranges from -1 to 1
@@ -119,14 +122,14 @@ function gameLoop() {
       pressedButton[0]=false;
     }
 
-	//Opens new tab
-	if(gp.buttons[5].pressed==true){
-		window.postMessage({command: "opentab"}, '*');
-	}
-	//Switches to right tab
-	if(gp.buttons[7].pressed==true){
-		window.postMessage({command: "switchr"}, '*');
-	}
+  	//Opens new tab
+  	if(gp.buttons[5].pressed==true){
+  		window.postMessage({command: "opentab"}, '*');
+  	}
+  	//Switches to right tab
+  	if(gp.buttons[7].pressed==true){
+  		window.postMessage({command: "switchr"}, '*');
+  	}
 
     // X to reload/refresh page
     if(gp.buttons[2].pressed == true){
@@ -153,6 +156,23 @@ function gameLoop() {
     if (pressedButton[9] && gp.buttons[9].pressed == false){
       window.history.forward();
       pressedButton[9]=false;
+    }
+
+    // The Y button that pops up the key board
+    if(gp.buttons[3].pressed == true){ // for some reason, forward goes straight to the most forward page, but back functions properly
+      pressedButton[3] = true;
+    }
+    if (pressedButton[3] && gp.buttons[3].pressed == false){
+
+      if(keyboardOn){
+        document.getElementById("chrome-coach-textbox").blur();
+        keyboardOn=false;
+      }
+      else{
+        document.getElementById("chrome-coach-textbox").focus();
+        keyboardOn=true;
+      }
+      pressedButton[3]=false;
     }
 
     //Moves the actual position of the cursor based on the new values of x and y

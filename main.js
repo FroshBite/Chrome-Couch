@@ -9,6 +9,16 @@ mouse.onload = function() {
 
 (document.body||document.documentElement).appendChild(mouse);
 
+var hiddenTextBox = document.createElement('input');
+hiddenTextBox.setAttribute("type","text");
+hiddenTextBox.id="chrome-coach-textbox";
+
+hiddenTextBox.onload = function() {
+    this.parentNode.removeChild(this);
+};
+(document.body||document.documentElement).appendChild(hiddenTextBox);
+// hiddenTextBox.style.visibility:hidden;
+
 var controls = document.createElement('script');
 controls.src = chrome.extension.getURL('controls.js');
 controls.onload = function() {
