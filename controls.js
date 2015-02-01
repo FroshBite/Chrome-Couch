@@ -16,7 +16,8 @@ var connected=false;
 var gp;
 
 //Used for mapping buttons and keeping track of what it pressed.
-var pressedButton=new Array("false","false","false");
+var pressedButton=new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+var pressedAxis=new Array(0,0,0,0); //For keeping track of what analog sticks are currently being pressed
 
 //To do with requesting animations with the web browser
 var rAF = window.mozRequestAnimationFrame || window.requestAnimationFrame;
@@ -67,12 +68,12 @@ function gameLoop() {
 
     var leftx=0.0, lefty=0.0, rightx=0.0, righty=0.0; //Left analog stick for cursor movement, right analog stick for scrolling
 
-    leftx=gp.axes[0];
-    lefty=gp.axes[1];
-    rightx=gp.axes[2];
-    righty=gp.axes[3];
+    leftx=gp.axes[0]; //The amount to move cursor in the x direction
+    lefty=gp.axes[1]; //The amount to move cursor in the y direction
+    rightx=gp.axes[2]; //The amount to scroll scrolling in the x direction
+    righty=gp.axes[3]; //The amount to scroll scrolling in the y direction
 
-    //Applies tolerancing to the values
+    //Applies tolerancing to the values to keep them from activating when no user is not inputting anything
     if (Math.abs(leftx)<=tolerance){
       leftx=0;
     }
@@ -81,9 +82,17 @@ function gameLoop() {
     }
     if (Math.abs(rightx)<=tolerance){
       rightx=0;
+      pressedAxis[2]=false; //A valid scroll in the x direction has not been detected
+    }
+    else{
+      pressedAxis[2]=true;//A valid scroll in the x direction has been detected
     }
     if (Math.abs(righty)<=tolerance){
       righty=0;
+      pressedAxis[3]=false;//A valid scroll in the y direction has not been detected
+    }
+    else{
+      pressedAxis[3]=true;//A valid scroll in the y direction has  been detected
     }
     x += leftx; //the left joystick right and left; ranges from -1 to 1
     y += lefty;//the left joystick up and down; ranges from -1 to 1
@@ -110,14 +119,22 @@ function gameLoop() {
     pointer.style.left = x*cursorSensitivity + "px";
     pointer.style.top =y*cursorSensitivity + "px";
 
-    //Keeps the user from scrolling outside the screen
+    //Keeps the user from scrolling over the veiwable window
 	  if(scrollx<0)
       scrollx=0;
     if(scrolly<0)
       scrolly=0;
+    if(scrollx>document.body.clientWidth/scrollSensitivity)
+      scrollx=document.body.clientWidth/scrollSensitivity;
+    //The 50px is there because document.body.clientHeight is off by about 50px. This value may need to change depending on the scrollSensitivity.
+    if(scrolly>document.body.clientHeight/scrollSensitivity-50)
+      scrolly=document.body.clientHeight/scrollSensitivity-50;
 
-    //Scrolls the actual window based on the scrollx and scrolly values
-	  // window.scrollTo(scrollx*scrollSensitivity, scrolly*scrollSensitivity);
+    //Only scrolls if a valid scroll input for the right analog stick has been detected. This allows you to scroll with the mouse as well
+    if(pressedAxis[2]||pressedAxis[3]){
+	     window.scrollTo(scrollx*scrollSensitivity, scrolly*scrollSensitivity);
+    }
+
     var start = rAF(gameLoop); //requests a browser animation and calls upon the gameLoop function again recursively
   }
 }
