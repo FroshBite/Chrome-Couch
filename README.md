@@ -15,7 +15,7 @@ A Google Chrome extension made during UofTHacks 2015. Click, type, scroll and br
 ## Controls
 
 * A button = Click
-* Left analog stick = Move cursor
+* Left analog stick = Move cursor, Reset cursor position (click)
 * Right analog stick = Scroll
 * Back = Back
 * Start = Forward
