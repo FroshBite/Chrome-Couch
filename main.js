@@ -1,8 +1,8 @@
 var mouse = document.createElement('div'); // mouse creation on connect
 
-mouse.innerHTML="+";
+mouse.innerHTML="\<img src='"+chrome.extension.getURL('cursor.png')+"' alt=''\>";
 mouse.id = "mouse";
-mouse.className = "mouse-regular";
+mouse.className="mouse-regular";
 mouse.onload = function() {
   this.parentNode.removeChild(this);
 };

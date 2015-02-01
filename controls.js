@@ -104,10 +104,10 @@ function gameLoop() {
     //When the user presses the "A" button
     if(gp.buttons[0].pressed==true){
       pressedButton[0]=true;
-      mouse.className = "mouse-highlighted";
+      mouse.className="mouse-highlighted";
     }
     else{
-      mouse.className = "mouse-regular";
+      mouse.className="mouse-regular";
     }
     //Only opens the links when the user actually releases the button, rather than clicks it
     if (pressedButton[0] && gp.buttons[0].pressed==false){
@@ -117,37 +117,6 @@ function gameLoop() {
         closestElement.focus();//for selecting text-boxes
       }
       pressedButton[0]=false;
-    }
-	
-	if(gp.buttons[5].pressed==true){
-		window.postMessage({command: "opentab"}, '*');
-	}
-
-    // X to reload/refresh page
-    if(gp.buttons[2].pressed == true){
-      pressedButton[2]=true;
-    }
-    if (pressedButton[2] && gp.buttons[2].pressed == false){
-      window.history.go(0);
-      pressedButton[2]=false;
-    }
-
-    // Back button to go back
-    if(gp.buttons[8].pressed == true){
-      pressedButton[8]=true;
-    }
-    if (pressedButton[8] && gp.buttons[8].pressed == false){
-      window.history.back();
-      pressedButton[8]=false;
-    }
-
-    // Start button to go forward
-    if(gp.buttons[9].pressed == true){ // for some reason, forward goes straight to the most forward page, but back functions properly
-      pressedButton[9] = true;
-    }
-    if (pressedButton[9] && gp.buttons[9].pressed == false){
-      window.history.forward();
-      pressedButton[9]=false;
     }
 
     //Moves the actual position of the cursor based on the new values of x and y
