@@ -12,6 +12,12 @@ var scrolly=0;
 //If the controller is currently connected
 var connected=false;
 
+//Stores the gamepad object
+var gp;
+
+//Used for mapping buttons and keeping track of what it pressed.
+var pressedButton=new Array("false","false","false");
+
 //To do with requesting animations with the web browser
 var rAF = window.mozRequestAnimationFrame || window.requestAnimationFrame;
 
@@ -20,7 +26,7 @@ var rAFStop = window.mozCancelRequestAnimationFrame || window.cancelRequestAnima
 //On page load, will check for an existing connection to a gamepad.
 window.addEventListener("load", function(){
   if(navigator.getGamepads()) {
-    var gp = navigator.getGamepads()[0];
+    gp = navigator.getGamepads()[0];
     console.log("Gamepad connected");
     pointer.style.display="inline-block";
     connected=true;
@@ -30,7 +36,7 @@ window.addEventListener("load", function(){
 
 //executes when the gamepad is first connected in a single tab session
 window.addEventListener("gamepadconnected", function() {
-  var gp = navigator.getGamepads()[0]; //capturing the first gamepad object from the gamepad array
+  gp = navigator.getGamepads()[0]; //capturing the first gamepad object from the gamepad array
   console.log("Gamepad Connected");
   //chrome.runtime.sendMessage({gamepad: "connected"}, function(response) {
   //  console.log(response.affirm);
@@ -78,8 +84,13 @@ function gameLoop() {
     //===============Button Handlers=================
     //When the user presses the "A" button
     if(gp.buttons[0].pressed==true){
-      document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).click();
-      document.elementFromPoint(parseInt(pointer.style.left,10), parseInt(pointer.style.top,10)).focus();
+      pressedButton[0]=true;
+    }
+    //Only opens the links when the user actually releases the button, rather than clicks it
+    if (pressedButton[0] && gp.buttons[0].pressed==false){
+      document.elementFromPoint(parseInt(pointer.style.left), parseInt(pointer.style.top)).click();
+      document.elementFromPoint(parseInt(pointer.style.left), parseInt(pointer.style.top)).focus();
+      pressedButton[0]=false;
     }
 
     //Moves the actual position of the cursor based on the new values of x and y
