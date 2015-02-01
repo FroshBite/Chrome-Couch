@@ -1,5 +1,5 @@
 # Chrome-Couch
-Use an XInput gamepad to control Google Chrome from the comfort of your couch.
+###Use an XInput gamepad to control Google Chrome from the comfort of your couch.
 
 ![Extension icon](https://raw.githubusercontent.com/FroshBite/Chrome-Couch/master/icon128.png)
 
