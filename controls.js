@@ -59,27 +59,37 @@ window.addEventListener("gamepaddisconnected", function() {
 function gameLoop() {
   var cursorSensitivity=14;
   var scrollSensitivity=14;
-  var tolerance=0.01; //so that the cursor doesnt move around when left idle
+  var tolerance=0.05; //so that the cursor doesnt move around when left idle
 
   if(connected) {
     //Storing the first gamepad that is connected
     var gp = navigator.getGamepads()[0];
 
-    //for moving the cursor around. Only moves after it detects movement past the tolerance
-    if(Math.abs(gp.axes[0])>=tolerance) { //harizontal movment
-      x += gp.axes[0]; //the left joystick right and left; ranges from -1 to 1
-    }
-    if(Math.abs(gp.axes[1])>=tolerance) { //vertical movement
-      y += gp.axes[1];//the left joystick up and down; ranges from -1 to 1
-    }
+    var leftx=0.0, lefty=0.0, rightx=0.0, righty=0.0; //Left analog stick for cursor movement, right analog stick for scrolling
 
-    //For scrolling using the right joystick. Only moves after it detects movemenent past the tolerance
-    if(Math.abs(gp.axes[2])>=tolerance) {
-      scrollx += gp.axes[2]; //the right joystick right and left; ranges from -1 to 1
+    leftx=gp.axes[0];
+    lefty=gp.axes[1];
+    rightx=gp.axes[2];
+    righty=gp.axes[3];
+
+    //Applies tolerancing to the values
+    if (Math.abs(leftx)<=tolerance){
+      leftx=0;
     }
-    if(Math.abs(gp.axes[3])>=tolerance) {
-      scrolly += gp.axes[3];//the right joystick up and down; ranges from -1 to 1
+    if (Math.abs(lefty)<=tolerance){
+      lefty=0;
     }
+    if (Math.abs(rightx)<=tolerance){
+      rightx=0;
+    }
+    if (Math.abs(righty)<=tolerance){
+      righty=0;
+    }
+    console.log(leftx+" "+lefty+" "+rightx+" "+righty)
+    x += leftx; //the left joystick right and left; ranges from -1 to 1
+    y += lefty;//the left joystick up and down; ranges from -1 to 1
+    scrollx += rightx; //the right joystick right and left; ranges from -1 to 1
+    scrolly += righty;//the right joystick up and down; ranges from -1 to 1
 
     //===============Button Handlers=================
     //When the user presses the "A" button
