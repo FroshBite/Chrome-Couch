@@ -85,6 +85,10 @@ function gameLoop() {
     //When the user presses the "A" button
     if(gp.buttons[0].pressed==true){
       pressedButton[0]=true;
+      mouse.className = "mouse-highlighted";
+    }
+    else{
+      mouse.className = "mouse-regular";
     }
     //Only opens the links when the user actually releases the button, rather than clicks it
     if (pressedButton[0] && gp.buttons[0].pressed==false){
@@ -104,7 +108,7 @@ function gameLoop() {
       scrolly=0;
 
     //Scrolls the actual window based on the scrollx and scrolly values
-	  window.scrollTo(scrollx*scrollSensitivity, scrolly*scrollSensitivity);
+	  // window.scrollTo(scrollx*scrollSensitivity, scrolly*scrollSensitivity);
     var start = rAF(gameLoop); //requests a browser animation and calls upon the gameLoop function again recursively
   }
 }
