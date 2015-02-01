@@ -15,3 +15,10 @@ controls.onload = function() {
     this.parentNode.removeChild(this);
 };
 (document.head||document.documentElement).appendChild(controls);
+
+
+window.addEventListener('message', function(event) {
+	chrome.runtime.sendMessage({command: "newtab"}, function(response){
+		console.log(response.farewell)
+	});
+});
