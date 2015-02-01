@@ -26,7 +26,7 @@ var rAFStop = window.mozCancelRequestAnimationFrame || window.cancelRequestAnima
 
 //On page load, will check for an existing connection to a gamepad.
 window.addEventListener("load", function(){
-  if(navigator.getGamepads()) {
+  if(navigator.getGamepads()[0]) {
     gp = navigator.getGamepads()[0];
     console.log("Gamepad connected");
     pointer.style.display="inline-block";
