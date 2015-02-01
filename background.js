@@ -119,5 +119,21 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	}
 });
 
+var magicnumber = 25;//For some reason, 13 new tabs are opened every time a new tab is opened. Pretty spooky :o
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+
+    if (request.command == "newtab"){
+	  console.log("shit");
+	  magicnumber-=1;
+	  if(magicnumber<0){
+	  magicnumber=25;
+	  chrome.tabs.create({ url: "http://www.reddit.com" });
+	  }
+	  	  sendResponse({farewell: "newtabbed"});
+	}
+	return true;
+});
+
+
 
 

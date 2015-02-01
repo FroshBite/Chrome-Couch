@@ -118,6 +118,10 @@ function gameLoop() {
       }
       pressedButton[0]=false;
     }
+	
+	if(gp.buttons[5].pressed==true){
+		window.postMessage({command: "opentab"}, '*');
+	}
 
     //Moves the actual position of the cursor based on the new values of x and y
     pointer.style.left = x*cursorSensitivity + "px";
