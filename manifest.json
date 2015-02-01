@@ -1,16 +1,19 @@
 {
   // Required
-  "manifest_version": 2,
+
+  "manifest_version": 2, // LEAVE THIS AS IT IS
   "name": "Chrome Couch",
   "version": "0.1",
 
   // Recommended
+
   "description": "Browse the web from the web, with a gamepad and Chrome Couch!",
   "icons": { "16": "icon16.png",
              "48": "icon48.png",
             "128": "icon128.png" },
 
   // Pick one (or none)
+
   "browser_action": {
       "default_title": "Chrome Couch",
       "default_icon": "icon48.png",
@@ -18,10 +21,7 @@
   },
 
   // Optional
-  //"background": {
-  //  "scripts": ["background.js"],
-  //  "persistent": false
-  //}
+  
   "content_scripts": [ {
       "css": ["main.css"],
       "js": [ "main.js" ],
