@@ -85,7 +85,6 @@ function gameLoop() {
     if (Math.abs(righty)<=tolerance){
       righty=0;
     }
-    console.log(leftx+" "+lefty+" "+rightx+" "+righty)
     x += leftx; //the left joystick right and left; ranges from -1 to 1
     y += lefty;//the left joystick up and down; ranges from -1 to 1
     scrollx += rightx; //the right joystick right and left; ranges from -1 to 1
