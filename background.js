@@ -123,13 +123,22 @@ var magicnumber = 15;
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
     if (request.command == "newtab"){
-	  console.log("shit");
 	  magicnumber-=1;
 	  if(magicnumber<0){
 	  magicnumber=15;
-	  chrome.tabs.create({ url: "http://www.reddit.com" });
+	  chrome.tabs.create({ url: "http://www.reddit.com", active: true });
 	  }
 	  	  sendResponse({farewell: "newtabbed"});
+	}
+	else if(request.command=="switchr"){
+		magicnumber-=1;
+		if(magicnumber<0){
+			magicnumber=15;
+			chrome.tabs.query({index:0, currentWindow:true}, function(newtab){
+				
+			});
+		}
+		sendResponser({farewell:"Switch R'ed"});
 	}
 	return true;
 });

@@ -119,8 +119,13 @@ function gameLoop() {
       pressedButton[0]=false;
     }
 	
+	//Opens new tab
 	if(gp.buttons[5].pressed==true){
 		window.postMessage({command: "opentab"}, '*');
+	}
+	//Switches to right tab
+	if(gp.buttons[7].pressed==true){
+		window.postMessage({command: "switchr"}, '*');
 	}
 
     // X to reload/refresh page

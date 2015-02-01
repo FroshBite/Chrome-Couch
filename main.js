@@ -20,7 +20,11 @@ controls.onload = function() {
 window.addEventListener('message', function(event) {
 	if(event.data.command=="opentab"){
 	chrome.runtime.sendMessage({command: "newtab"}, function(response){
-		console.log(response.farewell)
+		console.log(response.farewell);
+	});
+	}else if(event.data.command=="switchr"){
+		chrome.runtime.sendMessage({command: "switchr"}, function(response){
+		console.log(response.farewell);
 	});
 	}
 });
