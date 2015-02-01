@@ -12,6 +12,16 @@ A Google Chrome extension made during UofTHacks 2015. Click, type, scroll and br
 * Click "Load unpacked extension..." and select the Chrome-Couch folder
 * Use the options menu to enable URL typing from the virtual keyboard to increase convenience
 
+## Controls
+
+* A button = Click
+* Left analog stick = Move cursor
+* Right analog stick = Scroll
+* Back = Back
+* Start = Forward
+* X button = Refresh
+* Y button = Toggle keyboard
+
 ## [Team Froshbite](https://github.com/FroshBite)
 
 * [**Serge Babayan**](https://github.com/sergei1152)
