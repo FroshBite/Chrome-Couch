@@ -18,7 +18,9 @@ controls.onload = function() {
 
 
 window.addEventListener('message', function(event) {
+	if(event.data.command=="opentab"){
 	chrome.runtime.sendMessage({command: "newtab"}, function(response){
 		console.log(response.farewell)
 	});
+	}
 });
