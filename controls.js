@@ -53,6 +53,7 @@ window.addEventListener("gamepaddisconnected", function() {
   //chrome.runtime.sendMessage({gamepad: "disconnected"}, function(response) {
   //  console.log(response.affirm);
   //});
+  console.log("Gamepad Disconnected");
   pointer.style.display="none"; //hides the cursor from the user
   rAFStop(start); //stops the browser from refreshing the animation
 });
