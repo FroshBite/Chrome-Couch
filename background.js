@@ -119,13 +119,5 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	}
 });
 
-chrome.runtime.onRequest.addListener(function(request, sender, sendResponse) {
-    if (request.command == "newtab"){
-	  console.log("shit");
-	  chrome.tabs.create({url: http://www.reddit.com});
-      sendResponse({farewell: "newtabbed"});
-	}
-	return true;
-});
 
 
