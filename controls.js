@@ -175,6 +175,16 @@ function gameLoop() {
       pressedButton[3]=false;
     }
 
+    //For the left analog stick button that resets the position of the cursor
+    if(gp.buttons[10].pressed == true){ // for some reason, forward goes straight to the most forward page, but back functions properly
+      pressedButton[10] = true;
+    }
+    if (pressedButton[10] && gp.buttons[10].pressed == false){
+      x=0;
+      y=0;
+      pressedButton[10]=false;
+    }
+
     //Moves the actual position of the cursor based on the new values of x and y
     pointer.style.left = x*cursorSensitivity + "px";
     pointer.style.top =y*cursorSensitivity + "px";
