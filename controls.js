@@ -32,6 +32,9 @@ window.addEventListener("load", function(){
 window.addEventListener("gamepadconnected", function() {
   var gp = navigator.getGamepads()[0]; //capturing the first gamepad object from the gamepad array
   console.log("Gamepad Connected");
+  chrome.runtime.sendMessage({gamepad: "connected"}, function(response) {
+    console.log(response.affirm);
+  });
   connected=true;
 
   pointer.style.display="inline-block"; //Displays the cursor
@@ -40,6 +43,9 @@ window.addEventListener("gamepadconnected", function() {
 
 //Executes when the gamepad is disconnected within a tab session
 window.addEventListener("gamepaddisconnected", function() {
+  chrome.runtime.sendMessage({gamepad: "disconnected"}, function(response) {
+    console.log(response.affirm);
+  });
   pointer.style.display="none"; //hides the cursor from the user
   rAFStop(start); //stops the browser from refreshing the animation
 });
