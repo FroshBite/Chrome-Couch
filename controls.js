@@ -26,7 +26,7 @@ var rAFStop = window.mozCancelRequestAnimationFrame || window.cancelRequestAnima
 
 //On page load, will check for an existing connection to a gamepad.
 window.addEventListener("load", function(){
-  if(navigator.getGamepads()) {
+  if(navigator.getGamepads()[0]) {
     gp = navigator.getGamepads()[0];
     console.log("Gamepad connected");
     pointer.style.display="inline-block";
@@ -53,6 +53,7 @@ window.addEventListener("gamepaddisconnected", function() {
   //chrome.runtime.sendMessage({gamepad: "disconnected"}, function(response) {
   //  console.log(response.affirm);
   //});
+  console.log("Gamepad Disconnected");
   pointer.style.display="none"; //hides the cursor from the user
   rAFStop(start); //stops the browser from refreshing the animation
 });
