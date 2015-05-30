@@ -119,34 +119,20 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	}
 });
 
-var magicnumber = 15;
+var magicnumber = 10;
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
     if (request.command == "newtab"){
 	  magicnumber-=1;
 	  if(magicnumber<0){
-	  magicnumber=15;
-	  chrome.tabs.create({ url: "http://www.google.ca", active: true });
+	      magicnumber=10;
+	      chrome.tabs.create({ url: "http://www.google.ca", active: true });
 	  }
-	  	  sendResponse({farewell:"newtabbed"});
+	  sendResponse({farewell:"newtabbed"});
 	}
-	//else if(request.command=="switchr"){
-	//	magicnumber-=1;
-	//	if(magicnumber<0){
-	//		magicnumber=15;
-	//		var id;
-	//		chrome.tabs.query(function(tab){
-	//			id = tab.length;
-	//		});
-	//
-	//		if()
-	//	}
-	//	sendResponse({farewell:id});
-	//}
 	return true;
 });
 
-var magicnumber =15;
 var tabIndex=0;
 var tabLength;
 var tempId;
@@ -155,31 +141,40 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
    if(request.command=="switchr"){
 		magicnumber-=1;
 		if(magicnumber<0){
-			magicnumber=15;
+			magicnumber=10;
+			
 			chrome.tabs.query({},function(tab){
 				tabLength = tab.length;
-			});
-			chrome.tabs.query({active: true}, function(tab){
-				tabIndex=tab[0].index;
-				//sendResponse({farewell:String(tabIndex)});
+				//sendResponse({farewell:String(tabLength)});
+
+				chrome.tabs.query({active: true}, function(tab){
+					tabIndex=tab[0].index;
+					//sendResponse({farewell:String(tabIndex)});
+
+					chrome.tabs.query({index:((tabIndex+1)%tabLength)}, function(tab){
+						//sendResponse({farewell:String((tabIndex+1)%tabLength)});
+						tempId=tab[0].id;
+
+						chrome.tabs.update(tempId, {active:true}, function(){});
+					});
+				});
 			});
 
-			if(tabIndex+1>=tabLength){
-				chrome.tabs.query({index:0}, function(tab){
-					tempId=tab[0].id;
-					console.log(String(tempId));
-				});
-				chrome.tabs.update(tempId, {active:true}, function(){});
-				//sendResponse({farewell:String(tabLength)});
-			}else{
-				chrome.tabs.query({index:(tabIndex+1)}, function(tab){
-					tempId=tab[0].id;
-				});
-				chrome.tabs.update(tempId, {active:true}, function(){});
-				//sendResponse({farewell:String(tempId)});
-			}
+
+			//chrome.tabs.query({active: true}, function(tab){
+			//	tabIndex=tab[0].index;
+			//	//sendResponse({farewell:String(tabIndex)});
+			//});
+
+			//chrome.tabs.query({index:((tabIndex+1)%tabLength)}, function(tab){
+			//    //sendResponse({farewell:String((tabIndex+1)%tabLength)});
+			//	tempId=tab[0].id;
+			//});
+
+			//chrome.tabs.update(tempId, {active:true}, function(){});
+
 		}
-		//sendResponse({farewell:String(tabLength)});
+		sendResponse({farewell:String(tabLength)});
 	}
 	return true;
 });
